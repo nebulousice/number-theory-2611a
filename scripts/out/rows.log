@@ -1,0 +1,160 @@
+A1  d_2(n), 8n = 1 mod 11^alpha, n < 300000  (Theorem 1.1 exponent floor((alpha+1)/2))
+[MATCH]   alpha=1 delta=7 values=27273 min v_11=1 required=1
+[MATCH]   alpha=2 delta=106 values=2479 min v_11=1 required=1
+[MATCH]   alpha=3 delta=832 values=225 min v_11=2 required=2
+[MATCH]   alpha=4 delta=12811 values=20 min v_11=2 required=2
+[MATCH]   alpha=5 delta=100657 values=2 min v_11=3 required=3
+[MATCH] A2  x has integer coefficients first 700 coefficients
+[MATCH] A2  y has integer coefficients first 700 coefficients
+     x = [0, 1, 4, 13, 36, 91, 214, 474] ...   y = [0, 1, 6, 27, 102, 329, 954, 2550] ...   z = [0, 0, 0, 0, 0, 1, 7, 32] ...
+[MATCH] A2  ord_[0](x), ord_[0](y), ord_[0](z) = -3, -4, -5 (source: -3, -4, -5)
+[MATCH] A3  r_L has integer coefficients first 700 coefficients (source: 361)
+     r_L = [0, 1, 7, 38, 178, 743, 2866, 10382] ...
+[MATCH] A4  c(x): C_1(0) = 4 mod 11, 11-adic shape floor((11r+27)/13) v_11 of coefficients 1..22 = [2, 3, 4, 5, 7, 7, 8, 9, 10, 11, 11, 13, 14, 15, 16, 18, 18, 19, 20, 21, 22, 22]
+[MATCH] A5  impl 1 = impl 2 for (a,c)=(2,5) n <= 3200;  p(0..6) = [1, 7, 33, 126, 419, 1260, 3509]
+[MATCH] A5  impl 1 = impl 2 for (a,c)=(0,5) n <= 3200;  p(0..6) = [1, 5, 20, 65, 190, 506, 1265]
+[MATCH] A5  impl 1 = impl 2 for (a,c)=(3,1) n <= 3200;  p(0..6) = [1, 4, 11, 28, 63, 132, 264]
+[MATCH] A5  impl 1 = impl 2 for (a,c)=(-7,5) n <= 3200;  p(0..6) = [1, -2, 6, -12, 29, -54, 110]
+     d_2(7) = 9185 = 11 * 835,  d_2(106) = 42936374051638881228723  (v_11 = 1; 8*106 = 1 mod 121)
+
+B   Conjecture 6.1: min v_11 of p_a(11^alpha n + delta) over all n with index < 300000; alpha = 1..4
+    required exponents ceil(alpha/2) = 1, 1, 2, 2.   status: ok / FAIL (allowed class) ; control (excluded class)
+  part (1), c = 1, allowed classes mod 11: [3, 5, 7]
+    a= -33 (mod 11:  0)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -32 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -31 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a= -30 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -29 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a= -28 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -27 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a= -26 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -25 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a= -24 (mod 11:  9)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -23 (mod 11: 10)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2480, 226, 21]  control: fails
+    a= -22 (mod 11:  0)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2480, 225, 21]  control: fails
+    a= -21 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2480, 225, 21]  control: fails
+    a= -20 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a= -19 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a= -18 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a= -17 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a= -16 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a= -15 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 21]  ok
+    a= -14 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a= -13 (mod 11:  9)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 21]  control: fails
+    a= -12 (mod 11: 10)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 226, 21]  control: fails
+    a= -11 (mod 11:  0)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -10 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  -9 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  -8 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  -7 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  -6 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  -5 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  -4 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  -3 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  -2 (mod 11:  9)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  -1 (mod 11: 10)  min v_11 = [1, 2, 3, 4]  n-count = [27273, 2479, 226, 20]  control: holds up to alpha=4
+    a=   0 (mod 11:  0)  min v_11 = [1, 2, 3, 4]  n-count = [27273, 2479, 225, 20]  control: holds up to alpha=4
+    a=   1 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=   2 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 225, 21]  control: fails
+    a=   3 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=   4 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=   5 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=   6 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=   7 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=   8 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=   9 (mod 11:  9)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2480, 225, 21]  control: fails
+    a=  10 (mod 11: 10)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  11 (mod 11:  0)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 225, 21]  control: fails
+    a=  12 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  13 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  14 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  15 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  16 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  17 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  18 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  19 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  20 (mod 11:  9)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  21 (mod 11: 10)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  22 (mod 11:  0)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  23 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  24 (mod 11:  2)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  25 (mod 11:  3)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  26 (mod 11:  4)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 225, 21]  control: fails
+    a=  27 (mod 11:  5)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=  28 (mod 11:  6)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=  29 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=  30 (mod 11:  8)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=  31 (mod 11:  9)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2480, 225, 21]  control: fails
+    a=  32 (mod 11: 10)  min v_11 = [1, 1, 1, 1]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=  33 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 225, 21]  control: holds up to alpha=4
+  part (2), c = 5, allowed classes mod 11: [0, 2, 4, 6, 7, 8, 9, 10]
+    a= -33 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 21]  ok
+    a= -32 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a= -31 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a= -30 (mod 11:  3)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -29 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a= -28 (mod 11:  5)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a= -27 (mod 11:  6)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a= -26 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -25 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a= -24 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -23 (mod 11: 10)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a= -22 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a= -21 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a= -20 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a= -19 (mod 11:  3)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a= -18 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 225, 21]  ok
+    a= -17 (mod 11:  5)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2480, 225, 21]  control: fails
+    a= -16 (mod 11:  6)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 226, 21]  ok
+    a= -15 (mod 11:  7)  min v_11 = [1, 2, 2, 3]  n-count = [27272, 2480, 225, 21]  ok
+    a= -14 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 226, 21]  ok
+    a= -13 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a= -12 (mod 11: 10)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 226, 21]  ok
+    a= -11 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 21]  ok
+    a= -10 (mod 11:  1)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  -9 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 21]  ok
+    a=  -8 (mod 11:  3)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  -7 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  -6 (mod 11:  5)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 225, 20]  control: fails
+    a=  -5 (mod 11:  6)  min v_11 = [1, 2, 2, 3]  n-count = [27273, 2479, 225, 20]  ok
+    a=  -4 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  -3 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a=  -2 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  -1 (mod 11: 10)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a=   0 (mod 11:  0)  min v_11 = [1, 2, 2, 3]  n-count = [27272, 2479, 225, 20]  ok
+    a=   1 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=   2 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=   3 (mod 11:  3)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=   4 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=   5 (mod 11:  5)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=   6 (mod 11:  6)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 225, 21]  ok
+    a=   7 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=   8 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 226, 21]  ok
+    a=   9 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=  10 (mod 11: 10)  min v_11 = [1, 2, 2, 3]  n-count = [27273, 2480, 226, 21]  ok
+    a=  11 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=  12 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2480, 226, 21]  control: fails
+    a=  13 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 225, 21]  ok
+    a=  14 (mod 11:  3)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  15 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 21]  ok
+    a=  16 (mod 11:  5)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 21]  control: fails
+    a=  17 (mod 11:  6)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  18 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  19 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  20 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  21 (mod 11: 10)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 226, 20]  ok
+    a=  22 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  23 (mod 11:  1)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  24 (mod 11:  2)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  25 (mod 11:  3)  min v_11 = [0, 0, 1, 1]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  26 (mod 11:  4)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  27 (mod 11:  5)  min v_11 = [0, 0, 0, 0]  n-count = [27273, 2479, 226, 20]  control: fails
+    a=  28 (mod 11:  6)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2479, 225, 20]  ok
+    a=  29 (mod 11:  7)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2479, 225, 20]  ok
+    a=  30 (mod 11:  8)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 225, 21]  ok
+    a=  31 (mod 11:  9)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+    a=  32 (mod 11: 10)  min v_11 = [1, 1, 2, 2]  n-count = [27273, 2480, 226, 21]  ok
+    a=  33 (mod 11:  0)  min v_11 = [1, 1, 2, 2]  n-count = [27272, 2480, 225, 21]  ok
+[MATCH] B   every allowed a with |a| <= 33 satisfies the conjecture for alpha <= 4 in range failures: []
+
+ALL SOURCE VALUES MATCH: True   (233.0 s)

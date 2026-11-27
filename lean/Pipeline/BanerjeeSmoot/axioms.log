@@ -1,0 +1,2 @@
+'BanerjeeSmoot.NTA1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BanerjeeSmoot.side_conditions' depends on axioms: [propext]

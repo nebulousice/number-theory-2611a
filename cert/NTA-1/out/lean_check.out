@@ -1,0 +1,32 @@
+== lake build
+warning: Pipeline\Ozawa\Spectral.lean: imports `Mathlib.Analysis.SpecialFunctions.BinaryEntropy` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Spectral.lean: imports `Mathlib.Analysis.Matrix.HermitianFunctionalCalculus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Spectral.lean: imports `Mathlib.Analysis.Matrix.Order` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Spectral.lean: imports `Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Abs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Spectral.lean: imports `Mathlib.Analysis.SpecialFunctions.BinaryEntropy` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Analysis.SpecialFunctions.BinaryEntropy` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Analysis.SpecialFunctions.BinaryEntropy` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\Ozawa\Scalar.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.RingTheory.PowerSeries.Inverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.RingTheory.PowerSeries.Inverse` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.Tactic.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\BanerjeeSmoot\Main.lean: imports `Mathlib.Tactic.Linarith` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\KuhlMcGinn\Main.lean: imports `Mathlib.Data.Fintype.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Pipeline\KuhlMcGinn\Main.lean: imports `Mathlib.Data.Fintype.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (6991 jobs).
+== sorry / admit scan
+== axioms
+'BanerjeeSmoot.NTA1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BanerjeeSmoot.side_conditions' depends on axioms: [propext]
+PASS lean_check BanerjeeSmoot (Lean (version 4.37.0-rc1, x86_64-w64-windows-gnu, commit 0b77e12952ad39077d80d8bd6b66d601f225c321, Release))
+
+real	24m48.264s
+user	0m2.610s
+sys	0m8.498s
+
+[exited with code 0]

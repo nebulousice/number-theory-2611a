@@ -1,0 +1,358 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb,amsthm,booktabs}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{3em}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{heuristic}[theorem]{Heuristic statement}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Notation used throughout
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\poch}[2]{(#1;#2)_{\infty}}
+\newcommand{\Pone}[1]{P^{[1]}_{#1}}
+\newcommand{\Ptwo}[1]{P^{[2]}_{#1}}
+\newcommand{\pone}[1]{p^{[1]}_{#1}}
+\newcommand{\ptwo}[1]{p^{[2]}_{#1}}
+\newcommand{\done}[2]{\delta^{[1]}_{#1,#2}}
+\newcommand{\dtwo}[2]{\delta^{[2]}_{#1,#2}}
+\newcommand{\cf}[1]{[q^{#1}]}
+\newcommand{\val}{v_{11}}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareUrlCommand\file{\urlstyle{tt}}% file paths: breakable, not hyperlinked
+
+\title[Banerjee--Smoot Conjecture 6.1 fails at \(\alpha=3\)]{Conjecture 6.1 of Banerjee and Smoot fails at \(\alpha=3\)}
+\author{Sukhraj Sachdeva}
+\date{2026-11-27. DOI: \href{https://doi.org/10.5281/zenodo.24596332}{10.5281/zenodo.24596332}}
+\subjclass[2020]{Primary 11P83; Secondary 05A17, 11F33}
+\keywords{partition congruences, congruence families, eta quotients, powers of \(11\), counterexample, exact computation, Lean}
+
+\begin{document}
+\begin{abstract}
+Banerjee and Smoot conjectured two infinite families of congruences modulo powers of \(11\) for the coefficients of \((-q;q)_\infty^a/(q;q)_\infty\) and \((-q;q)_\infty^a/(q;q)_\infty^5\), for every integer \(a\) in prescribed residue classes modulo \(11\). We show that both parts of the conjecture, as stated, fail at the third level of the families. For \(a=36\) in the first family and \(a=40\) in the second, the coefficient of \(q^{54}\) is divisible by \(11\) but not by \(121\), while the conjecture requires divisibility by \(121\). The two coefficients are computed exactly by two independent programs, and they are checked in the Lean~4 proof assistant for truncated products; the passage from the infinite products to the truncations is a short hand argument. We also report numerical data on where the conjecture holds, and a possible corrected form, which we state only as a heuristic.
+\end{abstract}
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+\subsection*{The problem}
+For an integer \(a\), Banerjee and Smoot~\cite{BS} study two integer sequences \(\pone{a}(m)\) and \(\ptwo{a}(m)\). They are the coefficients of the power series~\eqref{eq:defP1} and~\eqref{eq:defP2} below. For \(a=0\), the number \(\pone{0}(m)\) is the number of partitions of \(m\).
+
+Banerjee and Smoot prove that the second sequence, for \(a=2\), satisfies an infinite family of congruences modulo growing powers of \(11\)~\cite[Thm.~1.1]{BS}. They conjecture that families of the same shape hold for both sequences and for every \(a\) in certain residue classes modulo \(11\)~\cite[Conj.~6.1]{BS}. Section~\ref{sec:defs} states the conjecture, restated in our notation, and defines every symbol in it.
+
+Congruence families modulo powers of \(11\) have a long history. Atkin proved Ramanujan's conjecture for the partition function modulo powers of \(11\)~\cite{Atkin}, and Gordon treated the coefficients of \((q;q)_\infty^{-k}\)~\cite{Gordon83}. Petta Mestrige studied congruences modulo powers of \(11\) for further eta quotients~\cite{PM}. According to~\cite{BS}, Gordon and Hughes~\cite{GH} speculated that such a family could be attached to a modular curve of genus \(2\); the family proved in~\cite{BS} is attached to the curve \(X_0(22)\), which has genus \(2\).
+
+\subsection*{The result}
+Theorem~\ref{thm:main} shows that both parts of the conjecture fail, as stated, at the level \(\alpha=3\). For \(a=36\) in part~(1) and \(a=40\) in part~(2), the conjecture asserts that \(121\) divides the coefficient of \(q^{54}\). In fact these coefficients are congruent to \(33\) and \(55\) modulo \(121\).
+
+The same two coefficients are divisible by \(11\). So the instances of the conjecture with \(\alpha=1\) and \(\alpha=2\) at this index hold (Remark~\ref{rem:levels}). Our counterexamples do not concern the case \(a=2\) of part~(2), which Banerjee and Smoot prove.
+
+The conjecture agrees with all our data for allowed \(a\) with \(|a|\le33\): there, levels \(1\) to \(4\) hold for all indices below \(300000\) (Section~\ref{sec:data}). The first failures occur at \(a=36\) and \(a=40\).
+
+\subsection*{What is proved by hand, by computer and in Lean}
+The proof of Theorem~\ref{thm:main} has three kinds of steps.
+\begin{itemize}
+\item By hand: the residue classes, the value of the shift \(\delta\) (Lemma~\ref{lem:hyp}), the reduction from infinite products to polynomials (Lemma~\ref{lem:trunc}), and the final deduction.
+\item By computer: the exact values of the two coefficients (Proposition~\ref{prop:values}). Two independent exact programs agree (Section~\ref{sec:computer}).
+\item In Lean~4 with Mathlib: the values of the coefficients of the truncated products, their residues modulo \(121\), and the arithmetic side conditions (Section~\ref{sec:lean}). Lemma~\ref{lem:trunc} is not formalized.
+\end{itemize}
+Section~\ref{sec:data} reports numerical observations and a heuristic. It is not used in the proof.
+
+\section{Definitions and the conjecture}\label{sec:defs}
+
+\subsection{Power series and \texorpdfstring{\(q\)}{q}-Pochhammer symbols}
+We work in the ring \(\Z[[q]]\) of formal power series in one variable \(q\) with integer coefficients. For a series \(F\) we write \(\cf{m}F\) for its coefficient of \(q^m\). A series with constant term \(1\) is a unit of \(\Z[[q]]\). So all its integer powers, including the negative ones, are again series with integer coefficients.
+
+The \(q\)-Pochhammer symbol is \((x;q)_\infty=\prod_{j\ge0}(1-xq^j)\). We need it only for \(x=q\) and \(x=-q\):
+\begin{equation}\label{eq:poch}
+\poch{q}{q}=\prod_{k\ge1}(1-q^k),\qquad \poch{-q}{q}=\prod_{k\ge1}(1+q^k).
+\end{equation}
+These infinite products are elements of \(\Z[[q]]\). For each \(m\), the coefficient of \(q^m\) in the partial product over \(k\le K\) is the same for all \(K\ge m\). By definition, this common value is the coefficient of \(q^m\) in the infinite product. Both products have constant term \(1\), so both are units.
+
+\begin{definition}\label{def:P}
+For \(a\in\Z\), the integers \(\pone{a}(m)\) and \(\ptwo{a}(m)\), for \(m\ge0\), are defined by
+\begin{align}
+\Pone{a}(q)&:=\frac{\poch{-q}{q}^{a}}{\poch{q}{q}}=\sum_{m\ge0}\pone{a}(m)\,q^m, \label{eq:defP1}\\
+\Ptwo{a}(q)&:=\frac{\poch{-q}{q}^{a}}{\poch{q}{q}^{5}}=\sum_{m\ge0}\ptwo{a}(m)\,q^m. \label{eq:defP2}
+\end{align}
+For \(m<0\) we set \(\pone{a}(m)=\ptwo{a}(m)=0\).
+\end{definition}
+
+For example, \(\pone{0}(m)\) is the number of partitions of \(m\), and \(\ptwo{0}(m)\) is the number of \(5\)-coloured partitions of \(m\). The series \(\Ptwo{2}\) is the generating function \(D_2\) of~\cite[Thm.~1.1]{BS}.
+
+\subsection{The congruence families}
+For a nonzero integer \(N\), the \(11\)-adic valuation \(\val(N)\) is the largest \(e\ge0\) such that \(11^e\) divides \(N\). For a real number \(x\), \(\lceil x\rceil\) is the least integer \(\ge x\). We write \(\N=\{1,2,3,\dots\}\) and \(\N_0=\{0,1,2,\dots\}\).
+
+Let \(\alpha\ge1\) and let \(b\) be an integer. Since \(24\) is prime to \(11\), the congruence \(24\delta\equiv b\pmod{11^\alpha}\) has a unique solution \(\delta\) modulo \(11^\alpha\). The source defines \(\done{a}{\alpha}\) by taking \(b=1-a\), and \(\dtwo{a}{\alpha}\) by taking \(b=5-a\). Unless we say otherwise, we take the least non-negative solution, so \(0\le\delta<11^\alpha\).
+
+For fixed \(a\), the statements below for all \(\alpha\in\N\) and all \(n\in\N_0\) form a \emph{congruence family}: the coefficients along the arithmetic progression \(11^\alpha n+\delta\) are all divisible by \(11^{\lceil\alpha/2\rceil}\). We call \(\alpha\) the \emph{level}.
+
+\begin{conjecture}[{Banerjee--Smoot~\cite[Conj.~6.1]{BS}, restated in our notation}]\label{conj:BS}
+Let \(\alpha\in\N\) and \(n\in\N_0\).
+\begin{enumerate}
+\item[(1)] If \(a\equiv 3,5,7\pmod{11}\), then \(\pone{a}\bigl(11^\alpha n+\done{a}{\alpha}\bigr)\equiv0\pmod{11^{\lceil\alpha/2\rceil}}\), where \(24\,\done{a}{\alpha}\equiv1-a\pmod{11^\alpha}\).
+\item[(2)] If \(a\not\equiv 1,3,5\pmod{11}\), then \(\ptwo{a}\bigl(11^\alpha n+\dtwo{a}{\alpha}\bigr)\equiv0\pmod{11^{\lceil\alpha/2\rceil}}\), where \(24\,\dtwo{a}{\alpha}\equiv5-a\pmod{11^\alpha}\).
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Reading of the statement]\label{rem:reading}
+We took the statement from version~1 of~\cite{BS}, the only version, and checked it against both the PDF and the HTML renderings.
+\begin{enumerate}
+\item The level \(\alpha=3\) lies in \(\N\) whatever convention is used for \(\N\), and \(n=0\) lies in \(\N_0\).
+\item The shift \(\delta\) is determined only modulo \(11^\alpha\). Remark~\ref{rem:delta} shows that the counterexamples do not depend on this choice, for every choice we checked.
+\item The modulus is \(11^{\lceil\alpha/2\rceil}\), with a ceiling. This agrees with~\cite[Thm.~1.1]{BS}, whose exponent is \(\lfloor(\alpha+1)/2\rfloor=\lceil\alpha/2\rceil\). Under a floor reading, \(11^{\lfloor3/2\rfloor}=11\), and our two coefficients would satisfy the congruence. That reading differs from the printed statement and from Theorem~1.1 of the source. The authors may have had a different exponent in mind, and we would welcome their view on the intended form.
+\item The source describes \(\Pone{a}\) and \(\Ptwo{a}\) as eta quotients of level~\(2\) and says that the associated congruence families live on the modular curve \(X_0(22)\). We do not use this structure. The counterexamples use only Definition~\ref{def:P}.
+\end{enumerate}
+\end{remark}
+
+\section{The counterexample}\label{sec:counter}
+
+Define the two integers
+\begin{align}
+N_1&=62043410886974649205238011198, \label{eq:N1}\\
+N_2&=66134580699742235651549220246110. \label{eq:N2}
+\end{align}
+
+\begin{theorem}\label{thm:main}
+Let \(\alpha=3\) and \(n=0\).
+\begin{enumerate}
+\item[(1)] The integer \(a=36\) satisfies \(a\equiv3\pmod{11}\), and \(\done{36}{3}=54\). Moreover \(\pone{36}(54)=N_1\equiv33\pmod{121}\).
+\item[(2)] The integer \(a=40\) satisfies \(a\not\equiv1,3,5\pmod{11}\), and \(\dtwo{40}{3}=54\). Moreover \(\ptwo{40}(54)=N_2\equiv55\pmod{121}\).
+\end{enumerate}
+Since \(11^{\lceil3/2\rceil}=121\), both parts of Conjecture~\ref{conj:BS} are false. In addition, \(\val(N_1)=\val(N_2)=1\).
+\end{theorem}
+
+The proof has three steps. Lemma~\ref{lem:hyp} checks the hypotheses and computes \(\delta\). Lemma~\ref{lem:trunc} replaces the infinite products by polynomials. Proposition~\ref{prop:values} gives the two coefficients; it is the only step done by computer.
+
+\begin{lemma}\label{lem:hyp}
+\begin{enumerate}
+\item[(a)] \(36\equiv3\pmod{11}\) and \(40\equiv7\pmod{11}\). In particular \(36\) lies in a class allowed in part~(1), and \(40\) lies in a class allowed in part~(2).
+\item[(b)] \(11^{\lceil3/2\rceil}=121\).
+\item[(c)] \(24\cdot54\equiv1-36\equiv5-40\pmod{1331}\). Hence \(\done{36}{3}=\dtwo{40}{3}=54\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) We have \(36=3\cdot11+3\) and \(40=3\cdot11+7\), and \(7\notin\{1,3,5\}\). (b) \(\lceil3/2\rceil=2\). (c) We have \(24\cdot54=1296=1331-35\) and \(1-36=5-40=-35\). The solution of \(24\delta\equiv-35\pmod{1331}\) is unique modulo \(1331\), and \(0\le54<1331\). So \(54\) is the least non-negative solution.
+\end{proof}
+
+\begin{lemma}[Truncation]\label{lem:trunc}
+Let \(0\le m\le M\) be integers, and put
+\[
+F_M=\prod_{k=1}^{M}(1+q^k),\qquad E_M=\prod_{k=1}^{M}(1-q^k).
+\]
+Then for all integers \(a\) and \(b\),
+\begin{equation}\label{eq:trunc}
+\cf{m}\Bigl(\poch{-q}{q}^{a}\,\poch{q}{q}^{-b}\Bigr)=\cf{m}\bigl(F_M^{a}E_M^{-b}\bigr).
+\end{equation}
+\end{lemma}
+
+The proof compares both sides modulo \(q^{m+1}\). It uses only the definition of the infinite products in~\eqref{eq:poch}.
+
+\begin{proof}
+The polynomials \(F_M\) and \(E_M\) have constant term \(1\), so they are units and the right side of~\eqref{eq:trunc} is defined. Let \(I=q^{m+1}\Z[[q]]\). Two series are congruent modulo the ideal \(I\) exactly when their coefficients of \(q^0,\dots,q^m\) agree.
+
+For \(K\ge M\), the partial product satisfies
+\[
+\prod_{k=1}^{K}(1+q^k)=F_M\prod_{k=M+1}^{K}(1+q^k)\equiv F_M\pmod I,
+\]
+because each factor \(1+q^k\) with \(k>M\ge m\) is congruent to \(1\) modulo \(I\). The coefficients of \(q^0,\dots,q^m\) in \(\poch{-q}{q}\) are those of these partial products (Section~\ref{sec:defs}). Hence \(\poch{-q}{q}\equiv F_M\pmod I\). In the same way, \(\poch{q}{q}\equiv E_M\pmod I\).
+
+The quotient map \(\Z[[q]]\to\Z[[q]]/I\) is a ring homomorphism. It maps units to units and inverses to inverses. Therefore \(\poch{-q}{q}^{a}\poch{q}{q}^{-b}\equiv F_M^{a}E_M^{-b}\pmod I\) for all integers \(a\) and \(b\), which is~\eqref{eq:trunc}.
+\end{proof}
+
+\begin{proposition}\label{prop:values}
+\begin{enumerate}
+\item[(a)] \(\pone{36}(54)=N_1\) and \(\ptwo{40}(54)=N_2\).
+\item[(b)] \(\cf{54}\bigl(F_{54}^{36}E_{54}^{-1}\bigr)=N_1\) and \(\cf{54}\bigl(F_{54}^{40}E_{54}^{-5}\bigr)=N_2\).
+\item[(c)] \(N_1\equiv33\pmod{121}\) and \(N_2\equiv55\pmod{121}\).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Verification]
+These are finite computations with integers. We do not do them by hand.
+
+Part~(a) is computed by two independent exact programs, which agree (Section~\ref{sec:computer}). The first program uses the products over \(k\le4047\); by Lemma~\ref{lem:trunc} with \(m=54\) and \(M=4047\), this gives the coefficients of the infinite products. The second program uses an identity for the infinite products themselves (equation~\eqref{eq:rec}) and does not truncate.
+
+Part~(b) is formalized in Lean~4 (Section~\ref{sec:lean}). By Lemma~\ref{lem:trunc} with \(m=M=54\), parts (a) and~(b) state the same equalities. So the Lean check is a third verification of part~(a); it relies on Lemma~\ref{lem:trunc}.
+
+Part~(c) is checked by both programs and in Lean.
+
+None of these checks uses Conjecture~\ref{conj:BS} or any consequence of it.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Part~(1). By Lemma~\ref{lem:hyp}(a), \(a=36\) satisfies the hypothesis of part~(1) of Conjecture~\ref{conj:BS}. By Lemma~\ref{lem:hyp}(c), \(\done{36}{3}=54\). With \(\alpha=3\) and \(n=0\), the conjecture therefore asserts \(\pone{36}(54)\equiv0\pmod{121}\), by Lemma~\ref{lem:hyp}(b). By Proposition~\ref{prop:values}(a), \(\pone{36}(54)=N_1\). By Proposition~\ref{prop:values}(c), \(N_1\equiv33\not\equiv0\pmod{121}\). So part~(1) fails.
+
+Part~(2) is the same argument with \(a=40\), \(\dtwo{40}{3}=54\), \(\ptwo{40}(54)=N_2\) and \(N_2\equiv55\not\equiv0\pmod{121}\).
+
+For the valuations, write \(N_1=121k+33=11(11k+3)\) with \(k\in\Z\), using Proposition~\ref{prop:values}(c). So \(11\) divides \(N_1\), and \(N_1/11\equiv3\pmod{11}\) is not divisible by \(11\). Hence \(\val(N_1)=1\). In the same way \(N_2/11\equiv5\pmod{11}\), so \(\val(N_2)=1\).
+\end{proof}
+
+\begin{remark}[The failure starts at level \(3\)]\label{rem:levels}
+The congruence \(24\cdot54\equiv-35\pmod{1331}\) of Lemma~\ref{lem:hyp}(c) also holds modulo \(11\) and modulo \(121\). So, for both parts, the shift is \(10\) at level \(1\) (since \(54=4\cdot11+10\)) and \(54\) at level \(2\). The index \(54\) is therefore the term \(n=4\) of the level-\(1\) progression and the term \(n=0\) of the level-\(2\) progression. At both levels the modulus is \(11^{\lceil1/2\rceil}=11^{\lceil2/2\rceil}=11\), and \(11\) divides \(N_1\) and \(N_2\) by Theorem~\ref{thm:main}. So these instances of the conjecture hold.
+\end{remark}
+
+\begin{remark}[The choice of \(\delta\)]\label{rem:delta}
+Every integer solution of \(24\delta\equiv-35\pmod{1331}\) has the form \(\delta=54+1331t\) with \(t\in\Z\).
+\begin{itemize}
+\item If \(t\le0\), the progression \(1331n+\delta\), \(n\in\N_0\), contains \(54\), at \(n=-t\). So the conjecture with this \(\delta\) again asserts that \(121\) divides the coefficient at \(54\), which Theorem~\ref{thm:main} refutes.
+\item If \(t\in\{1,2,3\}\), the instance \(n=0\) concerns the index \(m=54+1331t\in\{1385,2716,4047\}\). Both programs computed these coefficients exactly (Section~\ref{sec:computer}). Table~\ref{tab:shifts} lists their residues modulo \(121\); none is \(0\). So the conjecture fails for these choices of \(\delta\) as well.
+\item For \(t\ge4\) we have not computed the corresponding coefficients.
+\end{itemize}
+With \(\delta=54\), the indices \(1385\), \(2716\) and \(4047\) are the instances \(n=1,2,3\). So Table~\ref{tab:shifts} also gives three further failures in each part.
+\end{remark}
+
+\begin{table}[ht]
+\caption{Residues modulo \(121\) of the coefficients at \(m=54+1331t\), \(t=0,1,2,3\). All eight coefficients have \(11\)-adic valuation \(1\). Source: the archived outputs of both programs.}\label{tab:shifts}
+\begin{tabular}{rcc}\toprule
+\(m\) & \(\pone{36}(m)\bmod 121\) & \(\ptwo{40}(m)\bmod 121\)\\ \midrule
+\(54\) & \(33\) & \(55\)\\
+\(1385\) & \(11\) & \(55\)\\
+\(2716\) & \(11\) & \(66\)\\
+\(4047\) & \(11\) & \(99\)\\ \bottomrule
+\end{tabular}
+\end{table}
+
+\section{What the data suggest}\label{sec:data}
+
+This section is not part of the proof of Theorem~\ref{thm:main}. Its statements are numerical (finite computations by one program, not reproduced by a second one) or heuristic (unproved). We include them because they show where the conjecture seems to hold, and they suggest how it might be corrected.
+
+Throughout this section, \(c=1\) for part~(1) and \(c=5\) for part~(2). So the series of part~(1) is \(\poch{-q}{q}^a/\poch{q}{q}^{1}\), the series of part~(2) is \(\poch{-q}{q}^a/\poch{q}{q}^{5}\), and in both parts the shift solves \(24\delta\equiv c-a\pmod{11^\alpha}\). We call \(a\) \emph{allowed} in a part if it lies in the residue classes of that part of Conjecture~\ref{conj:BS}. We say that \emph{level \(\alpha\) holds} for \(a\) in a range if the congruence of Conjecture~\ref{conj:BS} holds at level \(\alpha\) for every \(n\) whose index \(11^\alpha n+\delta\) lies in that range.
+
+\subsection{Where the conjecture holds}
+The following observations are numerical.
+\begin{enumerate}
+\item[(i)] For every allowed \(a\) with \(|a|\le33\), in both parts, the levels \(\alpha=1,2,3,4\) hold for all indices below \(300000\). The same program reproduces the divisibility of~\cite[Thm.~1.1]{BS} for \(\alpha\le5\) on this range.
+\item[(ii)] For every allowed \(a\) with \(-1400\le a\le1400\), the levels \(\alpha=1,2\) hold for all indices below \(30000\). Level \(3\) fails for \(391\) of the \(763\) allowed values of \(a\) in part~(1), and for \(224\) of the \(2037\) allowed values in part~(2). The failing values of smallest absolute value are \(36,-37,47,-48,58,\dots\) in part~(1) and \(40,-45,51,-56,62,\dots\) in part~(2).
+\end{enumerate}
+So the conjecture agrees with all our data for \(|a|\le33\). Level~\(3\) fails for many allowed \(a\) with \(|a|>33\); the counts are given in~(ii). The smallest failing values, \(a=36\) and \(a=40\), are those of Theorem~\ref{thm:main}.
+
+\subsection{A pattern: carries}
+
+\begin{definition}\label{def:carry}
+Let \(c\in\{1,5\}\) and \(\alpha\ge1\). Let \(\delta_\alpha(a)\) be the least non-negative solution of \(24\delta\equiv c-a\pmod{11^\alpha}\), and \(\rho_\alpha\) the least non-negative solution of \(8\rho\equiv c\pmod{11^\alpha}\). We say that \(a\) has a \emph{carry at level \(\alpha\)} if \(\delta_\alpha(a)>\rho_\alpha\).
+\end{definition}
+
+The name comes from an equivalent form. Write \(s=\delta_\alpha(a)+\delta_\alpha(-a-c)\). Then \(24s\equiv(c-a)+(2c+a)=3c\equiv24\rho_\alpha\pmod{11^\alpha}\), so \(s\equiv\rho_\alpha\pmod{11^\alpha}\). Since \(0\le s<2\cdot11^\alpha\), either \(s=\rho_\alpha\) or \(s=\rho_\alpha+11^\alpha\). If \(\delta_\alpha(a)>\rho_\alpha\), then \(s>\rho_\alpha\), so \(s=\rho_\alpha+11^\alpha\). If \(\delta_\alpha(a)\le\rho_\alpha\) and \(s=\rho_\alpha+11^\alpha\), then \(\delta_\alpha(-a-c)\ge11^\alpha\), which is impossible. Hence \(a\) has a carry at level \(\alpha\) exactly when \(s\ge11^\alpha\).
+
+For \(c=1\) we have \(\rho_1=7\) and \(\rho_3=832\). For \(c=5\) we have \(\rho_1=2\) and \(\rho_3=167\). For \(a=36\) with \(c=1\), and for \(a=40\) with \(c=5\), we have \(\delta_1=10\) and \(\delta_3=54\) (Remark~\ref{rem:levels}). So both values have a carry at level \(1\) and none at level \(3\).
+
+The following observations are numerical, from the same computation as~(ii).
+\begin{enumerate}
+\item[(iii)] At level \(1\), the residues of \(a\) modulo \(11\) that give a carry are exactly the allowed classes of Conjecture~\ref{conj:BS}, in both parts. (Since \(\delta_1(a)\) depends only on \(a\) modulo \(11\), this is a check of eleven residues in each part.)
+\item[(iv)] Every allowed \(a\) in \([-1400,1400]\) with a carry at level \(3\) satisfies level \(3\) for all indices below \(30000\): this happens for \(304\) of \(304\) such values in part~(1), and for \(1789\) of \(1789\) in part~(2). Among the allowed values without a carry at level \(3\), level \(3\) fails for \(391\) of \(459\) in part~(1) and for \(224\) of \(248\) in part~(2).
+\end{enumerate}
+
+\begin{heuristic}[A possible corrected statement]\label{heur:carry}
+For every allowed integer \(a\), every level \(\alpha\in\{1,2,3\}\) and every \(n\ge0\),
+\[
+p_a\bigl(11^\alpha n+\delta_\alpha(a)\bigr)\equiv0\pmod{11^{\kappa_\alpha(a)}},
+\]
+where \(p_a\) is \(\pone{a}\) for \(c=1\) and \(\ptwo{a}\) for \(c=5\), and \(\kappa_\alpha(a)\) is the number of odd \(\alpha'\in\{1,\dots,\alpha\}\) at which \(a\) has a carry.
+\end{heuristic}
+
+The number of odd integers in \(\{1,\dots,\alpha\}\) is \(\lceil\alpha/2\rceil\). So the heuristic predicts the exponent of Conjecture~\ref{conj:BS} exactly when \(a\) has a carry at every odd level up to \(\alpha\). For \(a=2\) and \(c=5\), the case proved in~\cite[Thm.~1.1]{BS}, one computes \(\delta_\alpha(2)=(5\cdot11^\alpha+1)/8\) and \(\rho_\alpha=(11^\alpha+5)/8\) for odd \(\alpha\). So \(a=2\) has a carry at every odd level, in agreement with that theorem.
+
+Heuristic~\ref{heur:carry} is unproved. We state it only for allowed \(a\) and for \(\alpha\le3\), because that is what our evidence covers: observations (ii)--(iv), for \(|a|\le1400\) and indices below \(30000\). (Every index of the level-\(3\) progression also lies in the level-\(1\) progression, so~(ii) covers the instances with \(\kappa_3(a)=1\). For allowed \(a\), observation~(iii) gives \(\kappa_1(a)=\kappa_2(a)=1\), and \(\kappa_3(a)\) is \(2\) or \(1\) according as \(a\) has a carry at level \(3\) or not.) A natural guess is that the same rule holds for all \(a\) and all \(\alpha\), but we have not tested it there. The heuristic gives a conjectured lower bound for the exponent, not a characterization: by~(iv), some allowed values without a carry at level \(3\) still satisfy level \(3\). For \(a=36\) and \(a=40\) it predicts \(\kappa_3=1\), which is the valuation found in Theorem~\ref{thm:main}.
+
+\section{Computer verification}\label{sec:computer}
+
+\subsection*{Availability}
+All programs, their archived outputs and the Lean files are in the Zenodo record \href{https://doi.org/10.5281/zenodo.24596332}{doi:10.5281/zenodo.24596332} and in the public repository
+\begin{center}
+\url{https://github.com/nebulousice/banerjee-smoot-conjecture-6-1}.
+\end{center}
+File paths below are relative to that repository. With Python and python-flint 0.7.1 (\texttt{pip install python-flint==0.7.1}) and Node.js installed, the command
+\begin{center}
+\texttt{bash cert/NTA-1/run\_all.sh 3}
+\end{center}
+reruns both programs and the comparison. The file \file{REPRODUCE.md} gives versions, runtimes and the expected output lines.
+
+\subsection*{The programs}
+Two programs compute the coefficients of Proposition~\ref{prop:values}(a) and of Table~\ref{tab:shifts}, and a third compares their results. All three use exact integer arithmetic only; no decision depends on floating point. Each archived output starts with a header that records the command, the date, the SHA-256 hashes of the scripts, the versions of Python, python-flint and Node.js, and the host. It ends with the exit code and the wall time.
+
+The archived run was made on 2026-11-27, in a fresh checkout. The script hashes in the headers match the files in \file{cert/NTA-1/}. Wall times were measured on a shared, heavily loaded machine. The files keep their original names, and the Lean theorem keeps its original name, so that the archived hashes and logs still match.
+
+\begin{description}
+\item[Primary program] File \file{cert/NTA-1/NTA-1.py}; Python 3.12.10 with python-flint 0.7.1~\cite{flint}. It computes \(F_N\) and \(E_N\) for \(N=4047\) as exact truncated integer series, forms \(F_N^{a}E_N^{-b}\) by exact series division, and checks the division by multiplying back. It checks its building blocks against classical values: Euler's pentagonal number theorem for \(E_N\), partitions into distinct parts for \(F_N\), the partition numbers for \(E_N^{-1}\), and the partition number \(190569292\) of \(100\). It computes \(\delta\) from the inverse of \(24\) modulo \(1331\). Range: \((a,b)=(36,1)\) and \((40,5)\), at \(m=54,1385,2716,4047\). Command: \texttt{python NTA-1.py 3}. Output: \file{cert/NTA-1/out/NTA-1.out}, whose result section ends with a \texttt{PASS} verdict line; wall time \(91.96\) seconds.
+\item[Cross-check] File \file{cert/NTA-1/NTA-1_x.mjs}; Node.js v24.20.0, BigInt arithmetic, no libraries. For \(P=\prod_{k\ge1}(1+q^k)^{a}(1-q^k)^{-b}=\sum_m p(m)q^m\) it uses the recurrence
+\begin{equation}\label{eq:rec}
+m\,p(m)=\sum_{k=1}^{m}s(k)\,p(m-k)\quad(m\ge1),\qquad p(0)=1,
+\end{equation}
+where \(s(k)=\sum_{e\mid k}e\,\bigl(b+a(-1)^{k/e+1}\bigr)\). To derive it, apply the operator \(\theta=q\,\mathrm{d}/\mathrm{d}q\) to \(\log P\). For each \(e\ge1\) one has \(\theta\log(1+q^e)=\sum_{j\ge1}(-1)^{j+1}e\,q^{je}\) and \(-\theta\log(1-q^e)=\sum_{j\ge1}e\,q^{je}\). So \(\theta P=P\cdot\sum_{k\ge1}s(k)q^k\), and comparing coefficients gives~\eqref{eq:rec}. The program checks that every division by \(m\) is exact. It finds \(\delta\) by searching all of \([0,1331)\) and checks that the solution is unique. Range and command: as above, with \texttt{node NTA-1\_x.mjs 3}. Output: \file{cert/NTA-1/out/NTA-1_x.out}, whose result section ends with a \texttt{PASS} verdict line; wall time \(16.96\) seconds.
+\item[Comparison] File \file{cert/NTA-1/compare.py}. It requires the result lines of the two outputs to be identical and both verdicts to be \texttt{PASS}. Output: \file{cert/NTA-1/out/compare.out}, whose result section ends with a \texttt{PASS} verdict line. The exact verdict lines are listed in \file{REPRODUCE.md}.
+\end{description}
+
+The two programs share no code. They use different languages, different algorithms (products with series division, against the recurrence~\eqref{eq:rec}) and different ways to find \(\delta\). The command given above reruns all three and rewrites the archived outputs with fresh headers.
+
+Exploratory programs in \file{scripts/} found the counterexamples first and produced the data of Section~\ref{sec:data}. They are not certificates. They are \file{scripts/rows.py} (observation~(i); python-flint modulo \(11^6\), with an exact pure-Python recurrence as a check; \(233\) seconds), \file{scripts/scan_a.py} (observations (ii)--(iv); python-flint modulo \(11^4\); \(413\) seconds), \file{scripts/counterexample.py} (exact values from two methods that agree on the coefficients of \(q^0,\dots,q^{2800}\)) and \file{scripts/witness_naive.py} (products taken straight from the definition, truncated at \(q^{54}\)). Their outputs are archived in \file{scripts/out/}.
+
+\section{Formal verification}\label{sec:lean}
+
+The files are \file{lean/Pipeline/BanerjeeSmoot/Main.lean} and \file{lean/Pipeline/BanerjeeSmoot/Stages.lean}. The toolchain is Lean~4 version 4.37.0-rc1, a release candidate~\cite{Lean4}, with Mathlib~\cite{Mathlib} at the commit pinned in \file{lean/lake-manifest.json}.
+
+\subsection*{What is formalized}
+Lean works in the power series ring \(\Z[[X]]\), with \(X\) in place of \(q\) and with \(F_{54}\), \(E_{54}\) as in Lemma~\ref{lem:trunc}. Write \(\coeff_{54}\) for the coefficient of \(X^{54}\). The theorem \texttt{BanerjeeSmoot.NTA1} states:
+\begin{itemize}
+\item there is a series \(G\) with \(G\,E_{54}=1\), and a series \(G\) with \(G\,E_{54}^5=1\);
+\item for every \(G\) with \(G\,E_{54}=1\), \(\coeff_{54}(F_{54}^{36}G)\bmod121=33\), and \(121\) does not divide \(\coeff_{54}(F_{54}^{36}G)\);
+\item for every \(G\) with \(G\,E_{54}^5=1\), \(\coeff_{54}(F_{54}^{40}G)\bmod121=55\), and \(121\) does not divide \(\coeff_{54}(F_{54}^{40}G)\).
+\end{itemize}
+The theorems \texttt{part1\_coeff} and \texttt{part2\_coeff} give the exact values \(N_1\) and \(N_2\) of these coefficients. This is Proposition~\ref{prop:values}(b) and~(c). The theorem \texttt{side\_conditions} checks that \(36\bmod11=3\), that \(1331\) divides \(24\cdot54-(1-36)\), that \(40\bmod11=7\), that \(1331\) divides \(24\cdot54-(5-40)\), that \(0\le54<1331\), and that \(\lfloor(3+1)/2\rfloor=2\), which is \(\lceil3/2\rceil\). This is the arithmetic of Lemma~\ref{lem:hyp}.
+
+\subsection*{How it is checked}
+The coefficients are computed on lists of natural numbers and evaluated by the Lean kernel (\texttt{decide +kernel}; no \texttt{native\_decide}, so compiled code is not trusted). Intermediate lists are generated by a script, \file{cert/NTA-1/gen_lean_stages.py}, and stored in \file{Stages.lean}. They are untrusted: the kernel re-checks every step. A proved lemma links each list operation to multiplication by \(1+X^k\) in \(\Z[[X]]\). The inverse of \(E_{54}\) is replaced by \(H_{54}=\prod_{k=1}^{54}\prod_{j=0}^{5}(1+X^{k2^j})\). Lean proves that \(H_{54}E_{54}\equiv1\pmod{X^{55}}\), using \((1-X^k)\prod_{j=0}^{5}(1+X^{k2^j})=1-X^{64k}\).
+
+The check passed on 2026-11-27. The axioms used by the main theorem are \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound} (the lemma \texttt{side\_conditions} uses \texttt{propext} only), and there is no \texttt{sorry}. The check was run inside the author's larger Lean project; the whole check, which also rebuilt the other files of that project, took 24 minutes 48 seconds of wall time. The logs are archived in \file{cert/NTA-1/out/lean_check.out} and in \file{lean/Pipeline/BanerjeeSmoot/}.
+
+\subsection*{What is not formalized}
+\begin{itemize}
+\item Lemma~\ref{lem:trunc}, the passage from the infinite products to the truncations. Mathlib has no infinite \(q\)-Pochhammer product.
+\item Conjecture~\ref{conj:BS} itself is not stated in Lean. The link between the Lean theorems and the conjecture is the proof of Theorem~\ref{thm:main}, done by hand.
+\item Remarks~\ref{rem:levels} and~\ref{rem:delta}, and all of Section~\ref{sec:data}.
+\end{itemize}
+The file \file{Main.lean} imports only \file{Stages.lean} and parts of Mathlib. The two files, a Lake project that builds them, and build instructions are in the repository.
+
+\section*{Acknowledgements}
+Conjecture~6.1 and the proof of its case \(a=2\) of part~(2)~\cite[Thm.~1.1]{BS} are due to Koustav Banerjee and Nicolas Allen Smoot~\cite{BS}. The question of a congruence family on a curve of genus~\(2\) goes back to B.~Gordon and K.~Hughes~\cite{GH}, as described in~\cite{BS}.
+
+Human-directed research produced with the help of AI tools (Claude). Additional verification may still be required. This note has not been refereed. So far the result has been checked by two independent exact computations (python-flint and Node.js BigInt) and, for the truncated products, in Lean~4 with Mathlib.
+
+\begin{thebibliography}{9}
+
+\bibitem{Atkin}
+A.~O.~L. Atkin, \emph{Proof of a conjecture of Ramanujan}, Glasgow Math. J. \textbf{8} (1967), 14--32. \url{https://doi.org/10.1017/S0017089500000045}
+
+\bibitem{BS}
+K.~Banerjee and N.~A. Smoot, \emph{On a problem of Gordon and Hughes: the 11-adic properties of meromorphic modular functions on \(X_0(22)\)}, preprint, arXiv:2611.09681v1, 2026-11-06. \url{https://arxiv.org/abs/2611.09681v1}
+
+\bibitem{Gordon83}
+B.~Gordon, \emph{Ramanujan congruences for \(p_{-k}\) (mod \(11^r\))}, Glasgow Math. J. \textbf{24} (1983), no.~2, 107--123. \url{https://doi.org/10.1017/S0017089500005164}
+
+\bibitem{GH}
+B.~Gordon and K.~Hughes, \emph{Ramanujan congruences for \(q(n)\)}, in: Analytic Number Theory (Philadelphia, 1980), M.~I. Knopp (ed.), Lecture Notes in Math. \textbf{899}, Springer, 1981, 333--359. \url{https://doi.org/10.1007/BFb0096473}
+
+\bibitem{Lean4}
+L.~de~Moura and S.~Ullrich, \emph{The Lean 4 theorem prover and programming language}, in: Automated Deduction -- CADE 28, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021, 625--635. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{Mathlib}
+The mathlib Community, \emph{The Lean mathematical library}, in: Proceedings of the 9th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020), 367--381. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{PM}
+S.~Petta Mestrige, \emph{Congruences modulo powers of 11 for some eta-quotients}, Res. Number Theory \textbf{6} (2020), no.~1, Paper No.~5. \url{https://doi.org/10.1007/s40993-019-0180-z}; arXiv:1906.00428.
+
+\bibitem{flint}
+F.~Johansson et al., \emph{python-flint: Python bindings for FLINT}, version 0.7.1, 2025. \url{https://github.com/flintlib/python-flint}; and The FLINT team, \emph{FLINT: Fast Library for Number Theory}. \url{https://flintlib.org}
+
+\end{thebibliography}
+\end{document}

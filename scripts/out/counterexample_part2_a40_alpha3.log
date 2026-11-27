@@ -1,0 +1,9 @@
+part (2): P = f_2^40 / f_1^45,  a = 40 = 7 mod 11 (allowed),  alpha = 3
+delta = 54  (24*delta - (5 - 40) = 1331 = 11^3 * 1),  conjectured modulus 11^2
+impl 2 == impl 3 on all coefficients 0..2800: True
+sha256 of the coefficient list: 5892dd3cf1b21cc57fa985fb4078138522af2cf6efece2e10d4637775aa5d596
+  n=0  index=54  v_11=1  mod 11^3 = 418  value=66134580699742235651549220246110  VIOLATES
+    full value: 66134580699742235651549220246110
+  n=1  index=1385  v_11=1  mod 11^3 = 781  value=9284087782520017248550345...8905247622296432512893014 (195 digits)  VIOLATES
+  n=2  index=2716  v_11=1  mod 11^3 = 187  value=2215152191599474442239770...7937580135213804937010510 (278 digits)  VIOLATES
+RESULT: 3 violating value(s) among the first 3;  implementations agree: True
