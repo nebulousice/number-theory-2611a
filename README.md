@@ -2,6 +2,8 @@
 
 *Write-up, 2026-11-27. Paper: [`paper.pdf`](paper.pdf), Zenodo [doi:10.5281/zenodo.24596332](https://doi.org/10.5281/zenodo.24596332). Human-directed research produced with the help of AI tools (Claude). Additional verification may still be required. This note has not been refereed. **Expert verification required.** Verified so far with two independent exact computations (python-flint and Node.js BigInt) and Lean 4 + Mathlib (the two congruences, for the truncated products).*
 
+> **Credit first (correction, 2026-11-28).** These counterexamples were published earlier by others. [AmirMakir/broken-conjectures](https://github.com/AmirMakir/broken-conjectures/tree/234e28fc05/conjectures/eleven-adic-2611.09681) posted the failure of Conjecture 6.1, with the same failing values, on 2026-11-25 (commit `234e28f`, 13:33 UTC). [rpinho/math-certificates](https://github.com/rpinho/math-certificates/tree/main/conjectures/2611-09681-conj61) posted a disproof with a Lean 4 proof on 2026-11-26 (22:28 UTC), crediting AmirMakir. Our write-up (2026-11-27) was done without knowledge of either: our priority searches did not include GitHub code search and missed both. We claim no priority. What this note adds is an independent confirmation by two exact programs and a Lean kernel check.
+
 > **In one line:** Banerjee and Smoot conjectured two infinite families of congruences modulo powers of 11. As stated, both fail at level $`\alpha=3`$: for $a=36$ in part (1) and $a=40$ in part (2), the coefficient of $`q^{54}`$ is divisible by 11 but not by 121, while the conjecture requires 121.
 
 ## Summary
@@ -31,7 +33,7 @@ The conjecture in full, with every symbol defined, is in [`PROOF.md`](PROOF.md) 
 - Conjecture 6.1 is due to **Koustav Banerjee and Nicolas Allen Smoot** ([arXiv:2611.09681v1](https://arxiv.org/abs/2611.09681v1)). They proved the case $a=2$ of part (2) (their Theorem 1.1). Nothing here concerns that case.
 - The question of a congruence family on a curve of genus 2 goes back to **B. Gordon and K. Hughes** (*Ramanujan congruences for q(n)*, Lecture Notes in Math. 899, 1981, [doi:10.1007/BFb0096473](https://doi.org/10.1007/BFb0096473)), as described by Banerjee and Smoot.
 - Related work on congruences modulo powers of 11: Gordon ([Glasgow Math. J. 24 (1983)](https://www.cambridge.org/core/journals/glasgow-mathematical-journal/article/ramanujan-congruences-for-pk-mod-11/25B481EC52D78BF72E4FAF7DCC110E64)) and Shashika Petta Mestrige ([arXiv:1906.00428](https://arxiv.org/abs/1906.00428)).
-- A priority search on 2026-11-27 (14:24–15:19 UTC) found no report, correction or claim of this failure; the source is at version 1 only ([`LITERATURE_CHECK.md`](LITERATURE_CHECK.md)). This describes our search only. It is not a priority claim. The authors may well correct the statement themselves.
+- **Earlier reports of this failure:** AmirMakir/broken-conjectures (2026-11-25) and rpinho/math-certificates (2026-11-26, with a Lean proof); see "Credit first" above. Our priority search on 2026-11-27 (14:24–15:19 UTC, [`LITERATURE_CHECK.md`](LITERATURE_CHECK.md)) did not include GitHub code search and missed both; they were found on 2026-11-28. The source is at version 1 only. The authors may well correct the statement themselves.
 
 **Method.**
 1. Check the hypotheses and compute the shift $`\delta=54`$ by hand. The same arithmetic is checked in Lean.
@@ -146,7 +148,7 @@ where $`p_a=p^{[1]}_a`$ for $c=1$ and $`p_a=p^{[2]}_a`$ for $c=5$.
 2. Exploration reproduced the source's values, confirmed the conjecture for $`\lvert a\rvert\le 33`$, and found the failures at $a=36$ and $a=40$ by scanning larger $`\lvert a\rvert`$.
 3. Certification: two independent exact programs, run in a clean checkout, agree on both counterexamples and on the extra shifts.
 4. Formal check: the Lean 4 kernel verifies the coefficients of the truncated products.
-5. A second priority search, for the failure itself (14:24–15:19 UTC), found no report, correction or claim.
+5. A second priority search, for the failure itself (2026-11-27, 14:24–15:19 UTC), found nothing, but it missed the two earlier GitHub reports credited above (found on 2026-11-28).
 6. This write-up.
 
 ## Files
