@@ -32,13 +32,13 @@
 
 \title[Banerjee--Smoot Conjecture 6.1 fails at \(\alpha=3\)]{Conjecture 6.1 of Banerjee and Smoot fails at \(\alpha=3\)}
 \author{Sukhraj Sachdeva}
-\date{2026-11-27. DOI: \href{https://doi.org/10.5281/zenodo.24596332}{10.5281/zenodo.24596332}}
+\date{2026-11-27; revised 2026-11-28 (credit for earlier reports added). DOI: \href{https://doi.org/10.5281/zenodo.24596332}{10.5281/zenodo.24596332}}
 \subjclass[2020]{Primary 11P83; Secondary 05A17, 11F33}
 \keywords{partition congruences, congruence families, eta quotients, powers of \(11\), counterexample, exact computation, Lean}
 
 \begin{document}
 \begin{abstract}
-Banerjee and Smoot conjectured two infinite families of congruences modulo powers of \(11\) for the coefficients of \((-q;q)_\infty^a/(q;q)_\infty\) and \((-q;q)_\infty^a/(q;q)_\infty^5\), for every integer \(a\) in prescribed residue classes modulo \(11\). We show that both parts of the conjecture, as stated, fail at the third level of the families. For \(a=36\) in the first family and \(a=40\) in the second, the coefficient of \(q^{54}\) is divisible by \(11\) but not by \(121\), while the conjecture requires divisibility by \(121\). The two coefficients are computed exactly by two independent programs, and they are checked in the Lean~4 proof assistant for truncated products; the passage from the infinite products to the truncations is a short hand argument. We also report numerical data on where the conjecture holds, and a possible corrected form, which we state only as a heuristic.
+Banerjee and Smoot conjectured two infinite families of congruences modulo powers of \(11\) for the coefficients of \((-q;q)_\infty^a/(q;q)_\infty\) and \((-q;q)_\infty^a/(q;q)_\infty^5\), for every integer \(a\) in prescribed residue classes modulo \(11\). We show that both parts of the conjecture, as stated, fail at the third level of the families. For \(a=36\) in the first family and \(a=40\) in the second, the coefficient of \(q^{54}\) is divisible by \(11\) but not by \(121\), while the conjecture requires divisibility by \(121\). The two coefficients are computed exactly by two independent programs, and they are checked in the Lean~4 proof assistant for truncated products; the passage from the infinite products to the truncations is a short hand argument. We also report numerical data on where the conjecture holds, and a possible corrected form, which we state only as a heuristic. The same counterexamples were published earlier by others, on GitHub, on 2026-11-25 and 2026-11-26; this note is an independent confirmation and claims no priority.
 \end{abstract}
 \maketitle
 
@@ -57,6 +57,9 @@ Theorem~\ref{thm:main} shows that both parts of the conjecture fail, as stated, 
 The same two coefficients are divisible by \(11\). So the instances of the conjecture with \(\alpha=1\) and \(\alpha=2\) at this index hold (Remark~\ref{rem:levels}). Our counterexamples do not concern the case \(a=2\) of part~(2), which Banerjee and Smoot prove.
 
 The conjecture agrees with all our data for allowed \(a\) with \(|a|\le33\): there, levels \(1\) to \(4\) hold for all indices below \(300000\) (Section~\ref{sec:data}). The first failures occur at \(a=36\) and \(a=40\).
+
+\subsection*{Earlier reports}
+These counterexamples were published before this note. The repository AmirMakir/broken-conjectures~\cite{AM} posted the failure of Conjecture~6.1, with the same failing values, on 2026-11-25. The repository rpinho/math-certificates~\cite{RP} posted a disproof with a Lean~4 proof on 2026-11-26, crediting~\cite{AM}. This note was written without knowledge of either: our priority searches of 2026-11-27 did not include a search of GitHub code, and missed both. We claim no priority. What this note adds is an independent confirmation by two exact programs and a Lean kernel check.
 
 \subsection*{What is proved by hand, by computer and in Lean}
 The proof of Theorem~\ref{thm:main} has three kinds of steps.
@@ -324,11 +327,14 @@ The check passed on 2026-11-27. The axioms used by the main theorem are \texttt{
 The file \file{Main.lean} imports only \file{Stages.lean} and parts of Mathlib. The two files, a Lake project that builds them, and build instructions are in the repository.
 
 \section*{Acknowledgements}
-Conjecture~6.1 and the proof of its case \(a=2\) of part~(2)~\cite[Thm.~1.1]{BS} are due to Koustav Banerjee and Nicolas Allen Smoot~\cite{BS}. The question of a congruence family on a curve of genus~\(2\) goes back to B.~Gordon and K.~Hughes~\cite{GH}, as described in~\cite{BS}.
+Conjecture~6.1 and the proof of its case \(a=2\) of part~(2)~\cite[Thm.~1.1]{BS} are due to Koustav Banerjee and Nicolas Allen Smoot~\cite{BS}. The question of a congruence family on a curve of genus~\(2\) goes back to B.~Gordon and K.~Hughes~\cite{GH}, as described in~\cite{BS}. The counterexamples were first published by AmirMakir~\cite{AM} and then, with a Lean proof, by rpinho~\cite{RP}.
 
-Human-directed research produced with the help of AI tools (Claude). Additional verification may still be required. This note has not been refereed. So far the result has been checked by two independent exact computations (python-flint and Node.js BigInt) and, for the truncated products, in Lean~4 with Mathlib.
+Disclosure: Human researcher assisted by AI systems during search, proof drafting, and verification. Internally audited and computationally verified, externally unrefereed. So far the result has been checked by two independent exact computations (python-flint and Node.js BigInt) and, for the truncated products, in Lean~4 with Mathlib.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
+
+\bibitem{AM}
+AmirMakir, \emph{broken-conjectures}, GitHub repository, folder \file{conjectures/eleven-adic-2611.09681}, commit 234e28f, 2026-11-25. \url{https://github.com/AmirMakir/broken-conjectures/tree/234e28fc05/conjectures/eleven-adic-2611.09681}
 
 \bibitem{Atkin}
 A.~O.~L. Atkin, \emph{Proof of a conjecture of Ramanujan}, Glasgow Math. J. \textbf{8} (1967), 14--32. \url{https://doi.org/10.1017/S0017089500000045}
@@ -350,6 +356,9 @@ The mathlib Community, \emph{The Lean mathematical library}, in: Proceedings of 
 
 \bibitem{PM}
 S.~Petta Mestrige, \emph{Congruences modulo powers of 11 for some eta-quotients}, Res. Number Theory \textbf{6} (2020), no.~1, Paper No.~5. \url{https://doi.org/10.1007/s40993-019-0180-z}; arXiv:1906.00428.
+
+\bibitem{RP}
+rpinho, \emph{math-certificates}, GitHub repository, folder \file{conjectures/2611-09681-conj61}, 2026-11-26. \url{https://github.com/rpinho/math-certificates/tree/main/conjectures/2611-09681-conj61}
 
 \bibitem{flint}
 F.~Johansson et al., \emph{python-flint: Python bindings for FLINT}, version 0.7.1, 2025. \url{https://github.com/flintlib/python-flint}; and The FLINT team, \emph{FLINT: Fast Library for Number Theory}. \url{https://flintlib.org}

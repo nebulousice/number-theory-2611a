@@ -1,7 +1,8 @@
 # Literature and priority check
 
 - **Dates:** two searches on 2026-11-27. The first (06:07–13:22 UTC) asked whether Conjecture 6.1 was open. The second (14:24–15:19 UTC) asked whether anyone had already reported, corrected, restricted or claimed its failure.
-- **Result:** no report, correction, restriction or claim of the failure was found. The source is at version 1 only, with no recorded citing work. This describes our search; it is not a priority claim.
+- **Correction (2026-11-28):** these searches missed two earlier reports of the same failure, both on GitHub: [AmirMakir/broken-conjectures](https://github.com/AmirMakir/broken-conjectures/tree/234e28fc05/conjectures/eleven-adic-2611.09681) (2026-11-25, commit `234e28f`) and [rpinho/math-certificates](https://github.com/rpinho/math-certificates/tree/main/conjectures/2611-09681-conj61) (2026-11-26, with a Lean proof). Neither search included GitHub code search; they were found by a re-check on 2026-11-28. Credit for the counterexamples goes to them; we claim no priority.
+- **Result as recorded on 2026-11-27 (superseded):** no report, correction, restriction or claim of the failure was found. The source is at version 1 only (still so on 2026-11-28), with no recorded citing work.
 - **Main risk:** the authors themselves. They are active on this programme, and a version 2 of their preprint, or a follow-up paper, could restrict or correct the conjecture at any time.
 
 ## The source

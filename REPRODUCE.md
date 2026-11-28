@@ -15,7 +15,7 @@ Paths written inside the copied files (for example `targets/number-theory-2611a/
 | Lean 4 (through `elan`) | `leanprover/lean4:v4.37.0-rc1` (from `lean/lean-toolchain`) | `lean/` |
 | Mathlib | `8ec7bd8e5f837ab7e335374928e18341c4e9f385` (pinned in `lean/lake-manifest.json`) | `lean/` |
 
-No TeX engine was available when this write-up was made, so `paper.tex` has not been compiled. To build it: `latexmk -pdf paper.tex` (any TeX Live or MiKTeX with `amsart`, `amssymb`, `booktabs`, `url`, `hyperref`).
+`paper.pdf` (12 pages, revised 2026-11-28 to credit the earlier reports) was compiled from `paper.tex` with Tectonic (`tectonic -X compile paper.tex`): no errors and no undefined references or citations. Any TeX Live or MiKTeX with `amsart`, `amssymb`, `booktabs`, `url` and `hyperref` also works (`latexmk -pdf paper.tex`).
 
 ## 1. The certificates (the main result)
 
